@@ -269,11 +269,16 @@ if user_input:
             if error.hint:
                 st.caption(error.hint)
 
+_powered_by = (
+    f"✨ Powered by Google Gemini · <b>{MODEL_NAME}</b>"
+    if not st.session_state.demo_mode
+    else "Demo mode — add a Gemini API key in Secrets for live AI answers"
+)
 st.markdown(
-    """
+    f"""
     <div class="mg-footer">
       Maison &amp; Grain · Furniture &amp; interiors guidance · Prices shown are
-      indicative and should be confirmed with the showroom.
+      indicative and should be confirmed with the showroom.<br/>{_powered_by}
     </div>
     """,
     unsafe_allow_html=True,

@@ -131,8 +131,8 @@ def generate_reply(
     if not api_key or not api_key.strip():
         raise GeminiError(
             "No API key found.",
-            "Add GEMINI_API_KEY to Streamlit secrets (or your environment), or switch "
-            "on Demo mode in the sidebar.",
+            "Add GEMINI_API_KEY to Streamlit secrets (or your environment) to enable "
+            "the chatbot.",
         )
 
     url = f"{API_BASE}/{_model_name()}:generateContent"
@@ -179,7 +179,7 @@ def generate_reply_stream(
 ) -> Iterator[str]:
     """Yield reply text chunk-by-chunk using Gemini's SSE streaming endpoint."""
     if not api_key or not api_key.strip():
-        raise GeminiError("No API key found.", "Add GEMINI_API_KEY to secrets or use Demo mode.")
+        raise GeminiError("No API key found.", "Add GEMINI_API_KEY to Streamlit secrets to enable the chatbot.")
 
     url = f"{API_BASE}/{_model_name()}:streamGenerateContent"
     payload = _build_payload(history, user_message)
@@ -224,7 +224,7 @@ def generate_structured(
 ) -> dict:
     """Ask for JSON output (notebook 'structured outputs' pattern) and parse it."""
     if not api_key or not api_key.strip():
-        raise GeminiError("No API key found.", "Add GEMINI_API_KEY to secrets or use Demo mode.")
+        raise GeminiError("No API key found.", "Add GEMINI_API_KEY to Streamlit secrets to enable the chatbot.")
 
     instruction = (
         f"{SYSTEM_PROMPT}\n\nOUTPUT FORMAT: Reply with a single valid JSON object only. "

@@ -78,7 +78,6 @@ def _init_state() -> None:
     st.session_state.setdefault("pending_prompt", "")
     st.session_state.setdefault("local_api_key", "")
     st.session_state.setdefault("authorized", False)
-    st.session_state.setdefault("demo_mode", not bool(_secret_key() or st.session_state.get("local_api_key")))
 
 
 _init_state()
@@ -117,19 +116,48 @@ if access_code and not st.session_state.authorized:
 
 
 # ---------------------------------------------------------------------------
+# A Gemini API key is mandatory — there is no offline/demo fallback
+# ---------------------------------------------------------------------------
+if not api_key:
+    st.markdown(
+        """
+        <div class="mg-hero">
+          <div class="mg-hero-content">
+            <div class="mg-eyebrow">Setup required</div>
+            <h1>An API key is required.</h1>
+            <p>This showroom assistant is powered by Google Gemini. Add your key to
+               enable the conversation — no sample or offline replies are provided.</p>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.error("No Gemini API key found. The chatbot is disabled until a key is configured.")
+    st.markdown(
+        """
+        **How to enable it**
+
+        1. Create a key at [Google AI Studio](https://aistudio.google.com/apikey).
+        2. **Deployed app:** open Streamlit Cloud → your app → **Settings → Secrets**
+           and add `GEMINI_API_KEY = "your-key"`, then save.
+        3. **Local testing:** paste the key into the **Gemini API key** field in the
+           sidebar, or add it to `.streamlit/secrets.toml`.
+        """
+    )
+    st.stop()
+
+
+# ---------------------------------------------------------------------------
 # Sidebar
 # ---------------------------------------------------------------------------
 with st.sidebar:
     render_brand()
     st.caption("Your personal design concierge.")
 
-    if st.session_state.demo_mode:
-        st.markdown('<span class="mg-badge mg-badge-demo">● DEMO MODE</span>', unsafe_allow_html=True)
-    else:
-        st.markdown('<span class="mg-badge mg-badge-live">● LIVE · GEMINI</span>', unsafe_allow_html=True)
+    st.markdown('<span class="mg-badge mg-badge-live">● LIVE · GEMINI</span>', unsafe_allow_html=True)
 
     if access_code:
-        st.markdown('<span class="mg-badge mg-badge-demo">🔒 INVITE ONLY</span>', unsafe_allow_html=True)
+        st.markdown('<span class="mg-badge mg-badge-amber">🔒 INVITE ONLY</span>', unsafe_allow_html=True)
 
     st.markdown('<div class="mg-side-label">Connection</div>', unsafe_allow_html=True)
     if not _secret:
@@ -148,15 +176,6 @@ with st.sidebar:
         )
     else:
         st.markdown('<div class="mg-note">API key loaded from Streamlit secrets. 🔒</div>', unsafe_allow_html=True)
-
-    demo_toggle = st.toggle(
-        "Demo mode (no API key needed)",
-        value=bool(st.session_state.demo_mode),
-        help="Try the interface with built-in sample replies before connecting Gemini.",
-    )
-    st.session_state.demo_mode = bool(demo_toggle)
-    if not demo_toggle and not api_key:
-        st.warning("Add an API key above, or keep Demo mode on.")
 
     st.markdown('<div class="mg-divider"></div>', unsafe_allow_html=True)
     st.markdown('<div class="mg-side-label">Your preferences</div>', unsafe_allow_html=True)
@@ -220,7 +239,6 @@ with st.sidebar:
 # Point the engine at the current key / mode before handling any messages.
 bot: FurnitureChatbot = st.session_state.bot
 bot.api_key = api_key
-bot.demo_mode = bool(st.session_state.demo_mode)
 
 
 # ---------------------------------------------------------------------------
@@ -269,11 +287,7 @@ if user_input:
             if error.hint:
                 st.caption(error.hint)
 
-_powered_by = (
-    f"✨ Powered by Google Gemini · <b>{MODEL_NAME}</b>"
-    if not st.session_state.demo_mode
-    else "Demo mode — add a Gemini API key in Secrets for live AI answers"
-)
+_powered_by = f"✨ Powered by Google Gemini · <b>{MODEL_NAME}</b>"
 st.markdown(
     f"""
     <div class="mg-footer">
@@ -283,8 +297,5 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-if st.session_state.demo_mode:
-    st.caption("ℹ️ Demo mode is on — replies are sample answers, not live Gemini responses.")
-
 with st.expander("📊 Session statistics"):
     st.caption(bot.report())

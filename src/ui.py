@@ -170,7 +170,7 @@ header { height: 0 !important; }
   font-size: 11px; font-weight: 700; letter-spacing: .3px;
 }
 .mg-badge-live { background: #E4F0E6; color: #326A42; }
-.mg-badge-demo { background: #FCE9D8; color: #A45A2C; }
+.mg-badge-amber { background: #FCE9D8; color: #A45A2C; }
 .mg-note { font-size: 11.5px; color: #8C7A68; line-height: 1.5; }
 .mg-divider { height: 1px; background: rgba(138,111,84,.2); margin: 16px 0; }
 

@@ -14,19 +14,21 @@ Adapted from the OpenAI examples in the notebook to the Google Gemini API, with 
 domain changed from a generic coding assistant to a furniture showroom consultant.
 The exact same engine is used by app.py (Streamlit).
 
-Run:  python chatbot.py --demo       # no key needed
-      python chatbot.py               # live Gemini (key from secrets / env / prompt)
+An API key is mandatory — there is no offline or sample-response fallback.
+
+Run:  python chatbot.py               # Gemini (key from secrets / env / prompt)
+      python chatbot.py --stream      # same, streamed chunk by chunk
 """
 
 from __future__ import annotations
 
 import argparse
 import os
+import sys
 import time
 from getpass import getpass
 from typing import Iterator
 
-from src.demo import demo_reply
 from src.gemini_client import (
     GeminiError,
     generate_reply,
@@ -56,7 +58,7 @@ def load_api_key(interactive: bool = True) -> str:
     if value:
         return value
 
-    if interactive:
+    if interactive and sys.stdin.isatty():
         try:
             value = getpass("Enter your Gemini API key (input hidden): ").strip()
         except (EOFError, KeyboardInterrupt):
@@ -134,11 +136,9 @@ class FurnitureChatbot:
         api_key: str = "",
         system_instruction: str = SYSTEM_PROMPT,
         max_history_turns: int = 6,
-        demo_mode: bool = False,
     ) -> None:
         self.api_key = api_key
         self.max_history_turns = max_history_turns
-        self.demo_mode = demo_mode
         self.history: list[dict[str, str]] = [
             {"role": "system", "content": system_instruction},
             {"role": "assistant", "content": WELCOME_MESSAGE},
@@ -184,10 +184,7 @@ class FurnitureChatbot:
 
         started = time.perf_counter()
         try:
-            if self.demo_mode:
-                reply = demo_reply(context + message)
-            else:
-                reply = generate_reply(self.api_key, recent, context + message)
+            reply = generate_reply(self.api_key, recent, context + message)
         except GeminiError:
             self.history.pop()  # don't keep an unanswered question in memory
             raise
@@ -217,14 +214,9 @@ class FurnitureChatbot:
         collected: list[str] = []
 
         try:
-            if self.demo_mode:
-                for chunk in demo_reply(context + message).split(" "):
-                    collected.append(chunk)
-                    yield chunk + " "
-            else:
-                for chunk in generate_reply_stream(self.api_key, recent, context + message):
-                    collected.append(chunk)
-                    yield chunk
+            for chunk in generate_reply_stream(self.api_key, recent, context + message):
+                collected.append(chunk)
+                yield chunk
         except GeminiError:
             self.history.pop()
             raise
@@ -253,18 +245,19 @@ class FurnitureChatbot:
 # ---------------------------------------------------------------------------
 # 5. Interactive command-line chatbot (notebook Sections 7 & 8)
 # ---------------------------------------------------------------------------
-def talk_to_bot(demo_mode: bool = False, stream: bool = False) -> None:
+def talk_to_bot(stream: bool = False) -> None:
     # Windows consoles often default to cp1252, which cannot print our emojis.
     import sys
 
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    key = "" if demo_mode else load_api_key()
-    if not demo_mode and not key:
-        print("No API key available — switching to Demo mode.")
-        demo_mode = True
-    bot = FurnitureChatbot(api_key=key, demo_mode=demo_mode)
+    key = load_api_key(interactive=False)
+    if not key:
+        print("No Gemini API key found. The chatbot cannot start without one.")
+        print("Set GEMINI_API_KEY or add it to .streamlit/secrets.toml, then try again.")
+        return
+    bot = FurnitureChatbot(api_key=key)
     print("Maya (Maison & Grain) ready. Type 'exit' to quit, 'reset' to clear memory.\n")
 
     while True:
@@ -298,10 +291,9 @@ def talk_to_bot(demo_mode: bool = False, stream: bool = False) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Maison & Grain furniture chatbot")
-    parser.add_argument("--demo", action="store_true", help="use sample replies, no API key")
     parser.add_argument("--stream", action="store_true", help="stream replies chunk by chunk")
     args = parser.parse_args()
-    talk_to_bot(demo_mode=args.demo, stream=args.stream)
+    talk_to_bot(stream=args.stream)
 
 
 if __name__ == "__main__":

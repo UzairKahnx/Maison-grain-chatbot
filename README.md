@@ -69,11 +69,11 @@ These values are passed directly in the `generationConfig` of every API request.
   retries and backoff), server errors (5xx), timeouts, network failures, safety blocks
   and malformed responses all become friendly, actionable messages. The conversation
   is preserved so the visitor can simply retry.
-- **Demo mode** — with no API key configured, the app automatically uses a clearly
-  labelled local sample responder so the UI is fully explorable. Turn it off to use Gemini.
+- **API key required** — there is no offline/demo fallback. Without a Gemini key the app
+  shows a setup screen and refuses to chat, so every conversation genuinely uses the API.
 - **Notebook-style engine** — `chatbot.py` follows the class lab: secure key loading,
   token counting, history truncation, guardrails, streaming and JSON output, plus an
-  interactive CLI (`python chatbot.py --demo`). The Streamlit app uses this same engine.
+  interactive CLI. The Streamlit app uses this same engine.
 - **Visitor preferences** — room, style and budget selectors in the sidebar are passed
   as lightweight context with each message, personalising recommendations.
 - **Attractive, responsive UI** — warm showroom palette, editorial hero, trust bar,
@@ -92,7 +92,7 @@ These values are passed directly in the `generationConfig` of every API request.
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. (Optional) add your key for local use — do NOT commit this file
+# 2. REQUIRED: add your key for local use — do NOT commit this file
 mkdir .streamlit
 copy .streamlit\secrets.toml.example .streamlit\secrets.toml
 # edit .streamlit/secrets.toml and paste your key
@@ -109,8 +109,8 @@ Open the URL shown in the terminal (normally `http://localhost:8501`).
 3. Copy the key (starts with `AIza…`) into `.streamlit/secrets.toml` as shown above,
    or paste it into the sidebar field for a quick local test.
 
-Without a key, the app starts in **Demo mode** automatically — no errors, just sample
-replies. The sidebar shows which mode is active.
+A key is **mandatory**. If none is found, the app displays a setup screen with
+instructions and disables the chat — it will never answer with sample/offline replies.
 
 ### Try these prompts
 - "Help me choose a sofa for a small living room"
@@ -120,8 +120,8 @@ replies. The sidebar shows which mode is active.
 
 ### CLI chatbot and Colab notebook
 ```bash
-python chatbot.py --demo           # interactive terminal chat, no key needed
-python chatbot.py --stream         # live Gemini with streamed replies
+python chatbot.py                  # interactive terminal chat (requires a key)
+python chatbot.py --stream         # same, with streamed replies
 ```
 `chatbot.py` mirrors the lab notebook sections (memory class, token stats, guardrails,
 streaming, structured JSON output and an interactive loop). A ready-to-run Colab version
@@ -207,7 +207,6 @@ adapted to Gemini is in `notebookfile/furniture_chatbot.ipynb`.
     ├── __init__.py
     ├── prompt.py                # system prompt + model configuration
     ├── gemini_client.py         # Gemini REST client, retries, error translation
-    ├── demo.py                  # labelled no-key demo responder
     └── ui.py                    # CSS, SVG rendering, UI components
 ```
 
@@ -218,5 +217,5 @@ adapted to Gemini is in `notebookfile/furniture_chatbot.ipynb`.
 The assistant demonstrates that most of a specialised chatbot's behaviour can come from
 prompt engineering: the persona, domain boundary, product knowledge, response format and
 guardrails are all natural-language instructions in `SYSTEM_PROMPT`. The application code
-only handles transport, state and presentation — it contains no domain rules of its own
-apart from the clearly labelled Demo mode.
+only handles transport, state and presentation — it contains no domain rules of its own.
+Every reply comes from the Gemini API; the app cannot answer without a key.

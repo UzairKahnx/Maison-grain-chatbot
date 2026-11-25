@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Cream boucle sofa illustration">
+  <defs>
+    <linearGradient id="sb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCF4E8"/><stop offset="1" stop-color="#EEDCC4"/></linearGradient>
+    <linearGradient id="sc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF1E2"/><stop offset="1" stop-color="#DFC8A9"/></linearGradient>
+  </defs>
+  <rect width="400" height="300" rx="18" fill="#F5E9D8"/>
+  <circle cx="200" cy="120" r="110" fill="#FBF3E7" opacity="0.8"/>
+  <ellipse cx="200" cy="258" rx="150" ry="14" fill="#CBA57E" opacity="0.3"/>
+  <line x1="112" y1="238" x2="112" y2="262" stroke="#8B5E3C" stroke-width="8" stroke-linecap="round"/>
+  <line x1="288" y1="238" x2="288" y2="262" stroke="#8B5E3C" stroke-width="8" stroke-linecap="round"/>
+  <rect x="92" y="120" width="216" height="86" rx="26" fill="url(#sb)"/>
+  <rect x="76" y="148" width="40" height="72" rx="18" fill="url(#sb)"/>
+  <rect x="284" y="148" width="40" height="72" rx="18" fill="url(#sb)"/>
+  <rect x="102" y="176" width="196" height="52" rx="18" fill="url(#sc)"/>
+  <rect x="110" y="172" width="92" height="46" rx="14" fill="#FDF6EB" stroke="#E7D5BD" stroke-width="1.5"/>
+  <rect x="198" y="172" width="92" height="46" rx="14" fill="#FDF6EB" stroke="#E7D5BD" stroke-width="1.5"/>
+  <rect x="132" y="144" width="44" height="44" rx="11" fill="#C16645" transform="rotate(-8 132 144)"/>
+  <rect x="226" y="146" width="40" height="40" rx="10" fill="#D9B68D" transform="rotate(7 226 146)"/>
+</svg>

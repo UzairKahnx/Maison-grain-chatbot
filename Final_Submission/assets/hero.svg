@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="Illustration of a warm, elegant furniture showroom">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F8ECD9"/>
+      <stop offset="0.55" stop-color="#EED9BC"/>
+      <stop offset="1" stop-color="#DDBE98"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFF6E6" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FFF6E6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sofa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCF6EC"/>
+      <stop offset="1" stop-color="#EADBC6"/>
+    </linearGradient>
+    <linearGradient id="seat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6EADA"/>
+      <stop offset="1" stop-color="#DFCBB0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <circle cx="900" cy="90" r="260" fill="url(#glow)"/>
+
+  <!-- floor -->
+  <rect y="305" width="1200" height="115" fill="#D3B08A" opacity="0.35"/>
+  <line x1="0" y1="305" x2="1200" y2="305" stroke="#C39B74" stroke-width="2" opacity="0.55"/>
+
+  <!-- arched window -->
+  <path d="M812 285 V122 a118 118 0 0 1 236 0 V285 Z" fill="#FBF1E2" stroke="#B98C60" stroke-width="7"/>
+  <line x1="930" y1="6" x2="930" y2="285" stroke="#C39B74" stroke-width="5"/>
+  <line x1="814" y1="170" x2="1046" y2="170" stroke="#C39B74" stroke-width="4"/>
+  <path d="M824 275 L900 150 L930 200 L980 130 L1036 275 Z" fill="#E9CDA9" opacity="0.55"/>
+
+  <!-- curtain -->
+  <path d="M1050 8 C1078 88 1066 190 1092 305 L1140 305 C1108 176 1120 82 1102 8 Z" fill="#F9ECDA" opacity="0.92"/>
+  <path d="M1068 10 C1092 92 1080 192 1106 305" fill="none" stroke="#E4C9A8" stroke-width="3" opacity="0.7"/>
+
+  <!-- rug -->
+  <ellipse cx="455" cy="362" rx="365" ry="34" fill="#BE8D67" opacity="0.28"/>
+  <ellipse cx="455" cy="362" rx="320" ry="24" fill="none" stroke="#B17E5B" stroke-width="2" opacity="0.35"/>
+
+  <!-- plant -->
+  <path d="M96 268 q-34 -58 -10 -96 q16 44 24 74" fill="#7E8F6B" opacity="0.9"/>
+  <path d="M100 266 q6 -76 40 -98 q-12 54 -24 92" fill="#93A47C"/>
+  <path d="M94 266 q-42 -30 -50 -66 q38 20 58 54" fill="#6E835F" opacity="0.85"/>
+  <path d="M104 266 q40 -38 76 -38 q-30 28 -60 44" fill="#86986F"/>
+  <path d="M74 258 h56 l-8 50 h-40 Z" fill="#B26A4A"/>
+  <path d="M74 258 h56 l-3 12 h-50 Z" fill="#C57A57"/>
+
+  <!-- arc floor lamp -->
+  <path d="M690 305 C690 180 706 118 770 116" fill="none" stroke="#9A7048" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="690" cy="307" rx="28" ry="7" fill="#8A603E"/>
+  <path d="M744 112 h54 l12 40 h-78 Z" fill="#FAEAD0" stroke="#C9A277" stroke-width="3"/>
+  <ellipse cx="771" cy="152" rx="39" ry="6" fill="#E9CFA9"/>
+
+  <!-- side table + book -->
+  <ellipse cx="1010" cy="300" rx="58" ry="12" fill="#9B6B45"/>
+  <path d="M960 300 v34 h100 v-34" fill="#B08157"/>
+  <path d="M968 305 h84" stroke="#8B5E3C" stroke-width="2" opacity="0.6"/>
+  <rect x="985" y="286" width="48" height="10" rx="3" fill="#B85C38" transform="rotate(-6 985 286)"/>
+
+  <!-- sofa -->
+  <g>
+    <line x1="212" y1="300" x2="212" y2="330" stroke="#8B5E3C" stroke-width="11" stroke-linecap="round"/>
+    <line x1="592" y1="300" x2="592" y2="330" stroke="#8B5E3C" stroke-width="11" stroke-linecap="round"/>
+    <rect x="180" y="182" width="446" height="100" rx="34" fill="url(#sofa)"/>
+    <rect x="158" y="218" width="60" height="92" rx="26" fill="url(#sofa)"/>
+    <rect x="590" y="218" width="60" height="92" rx="26" fill="url(#sofa)"/>
+    <rect x="196" y="248" width="414" height="62" rx="24" fill="url(#seat)"/>
+    <rect x="206" y="243" width="196" height="56" rx="19" fill="#FBF2E5" stroke="#E6D4BC" stroke-width="2"/>
+    <rect x="404" y="243" width="196" height="56" rx="19" fill="#FBF2E5" stroke="#E6D4BC" stroke-width="2"/>
+    <rect x="246" y="206" width="62" height="62" rx="16" fill="#C16645" transform="rotate(-9 246 206)"/>
+    <rect x="470" y="210" width="56" height="56" rx="14" fill="#D8B58C" transform="rotate(8 470 210)"/>
+    <path d="M210 280 q190 18 380 0" fill="none" stroke="#D7C0A2" stroke-width="2" opacity="0.7"/>
+  </g>
+</svg>

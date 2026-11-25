@@ -5,6 +5,11 @@ A domain-focused conversational assistant for a premium furniture showroom, buil
 stays strictly inside the furniture/interiors domain and politely redirects off-topic
 questions. Its behaviour is defined mainly by a carefully designed system prompt.
 
+### 🚀 Live demo
+**https://maison-grain-chatbot-ynfigfasfemhxe2ftneffv.streamlit.app/**
+
+*Source code: https://github.com/UzairKahnx/Maison-grain-chatbot*
+
 ---
 
 ## 1. Assignment requirements → implementation
@@ -156,7 +161,9 @@ adapted to Gemini is in `notebookfile/furniture_chatbot.ipynb`.
    (Alternatively set an environment variable `GEMINI_API_KEY` in the same panel.)
 
 5. Click **Deploy**. Streamlit builds the app and gives you a public URL like
-   `https://<your-repo>-<hash>.streamlit.app` that anyone can open.
+   `https://<your-repo>-<hash>.streamlit.app` that anyone can open. For this project the
+   deployed link is
+   **https://maison-grain-chatbot-ynfigfasfemhxe2ftneffv.streamlit.app/**.
 
 6. To update the app later, just push to GitHub — the app redeploys automatically.
 

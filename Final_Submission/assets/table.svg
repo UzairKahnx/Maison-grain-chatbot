@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Round oak dining table illustration">
+  <defs>
+    <linearGradient id="tb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E7C79C"/><stop offset="1" stop-color="#C99A66"/></linearGradient>
+    <linearGradient id="tp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B8814F"/><stop offset="1" stop-color="#915F38"/></linearGradient>
+  </defs>
+  <rect width="400" height="300" rx="18" fill="#F5E9D8"/>
+  <circle cx="200" cy="120" r="110" fill="#FBF3E7" opacity="0.8"/>
+  <ellipse cx="200" cy="262" rx="132" ry="14" fill="#CBA57E" opacity="0.3"/>
+  <path d="M182 150 h36 l10 100 h-56 Z" fill="url(#tp)"/>
+  <ellipse cx="200" cy="250" rx="44" ry="10" fill="#8C5A36"/>
+  <ellipse cx="200" cy="146" rx="132" ry="30" fill="url(#tb)" stroke="#A97A4D" stroke-width="3"/>
+  <path d="M100 142 q100 34 200 0" fill="none" stroke="#F0D6B2" stroke-width="2" opacity="0.8"/>
+  <path d="M150 124 q50 16 100 0" fill="none" stroke="#B98B5E" stroke-width="1.5" opacity="0.5"/>
+  <ellipse cx="200" cy="140" rx="22" ry="8" fill="#B85C38" opacity="0.85"/>
+  <path d="M200 132 v-22" stroke="#7E8F6B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M200 118 q-22 -12 -18 -28 q16 6 18 28 M200 122 q22 -14 20 -30 q-18 8 -20 30" fill="#8FA17A"/>
+</svg>

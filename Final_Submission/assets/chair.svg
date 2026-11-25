@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Cognac leather lounge chair illustration">
+  <defs>
+    <linearGradient id="cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CE8655"/><stop offset="1" stop-color="#A85C34"/></linearGradient>
+    <linearGradient id="cc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DB9260"/><stop offset="1" stop-color="#B06439"/></linearGradient>
+  </defs>
+  <rect width="400" height="300" rx="18" fill="#F5E9D8"/>
+  <circle cx="200" cy="120" r="110" fill="#FBF3E7" opacity="0.8"/>
+  <ellipse cx="200" cy="258" rx="120" ry="13" fill="#CBA57E" opacity="0.3"/>
+  <path d="M138 242 L120 268 M262 242 L280 268" stroke="#7A4F32" stroke-width="9" stroke-linecap="round"/>
+  <path d="M138 168 L120 242 M262 168 L280 242" stroke="#8B5E3C" stroke-width="12" stroke-linecap="round"/>
+  <path d="M134 96 q66 -26 132 0 l-8 78 q-58 22 -116 0 Z" fill="url(#cb)" stroke="#8E4F2C" stroke-width="3"/>
+  <path d="M126 168 q74 26 148 0 l-6 38 q-68 26 -136 0 Z" fill="url(#cc)" stroke="#8E4F2C" stroke-width="3"/>
+  <path d="M156 112 q44 -14 88 0" fill="none" stroke="#EBA778" stroke-width="3" opacity="0.7"/>
+  <rect x="128" y="158" width="24" height="56" rx="12" fill="#8B5E3C"/>
+  <rect x="248" y="158" width="24" height="56" rx="12" fill="#8B5E3C"/>
+  <circle cx="200" cy="122" r="4" fill="#7A4F32" opacity="0.6"/>
+</svg>

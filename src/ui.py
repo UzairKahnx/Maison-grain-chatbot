@@ -62,6 +62,7 @@ header { height: 0 !important; }
   overflow: hidden;
   box-shadow: 0 18px 40px rgba(92, 62, 35, 0.16);
   background-color: #EED9BC;
+  background-image: linear-gradient(120deg, #EED9BC, #D9B992);
   background-size: cover;
   background-position: center 55%;
   display: flex;

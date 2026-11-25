@@ -164,6 +164,23 @@ adapted to Gemini is in `notebookfile/furniture_chatbot.ipynb`.
 > in Google AI Studio immediately if it is ever exposed. Free-tier keys have per-minute
 > and per-day quotas; for heavy traffic, use a paid tier or restrict the key.
 
+### Keeping your key private on a public app
+- The key is read **only on the server** from `st.secrets` (Streamlit Cloud Secrets) or
+  an environment variable. It is never sent to the browser, never stored in
+  `session_state`, and never written to a file that gets committed.
+- `.streamlit/secrets.toml` is in `.gitignore`. Only `secrets.toml.example` is committed.
+- **Optional invite-only gate:** add a second secret in Streamlit Cloud:
+  ```toml
+  APP_ACCESS_CODE = "choose-a-private-code"
+  ```
+  Visitors then see a lock screen and must enter that code before the chat loads. This
+  stops strangers from consuming your API quota through the public link. Share the code
+  only with people you want to test the bot. Use **🔒 Lock this conversation** in the
+  sidebar to sign out. If `APP_ACCESS_CODE` is not set, the app is open to everyone.
+- If a key is ever exposed anywhere (including a chat message), **delete it in Google AI
+  Studio**, create a new one, and update only the Streamlit Cloud Secret — no code change
+  or redeploy of the repository is needed.
+
 ---
 
 ## 7. Project structure

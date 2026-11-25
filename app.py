@@ -62,10 +62,22 @@ def _secret_key() -> str:
     return os.environ.get("GEMINI_API_KEY", "").strip()
 
 
+def _secret_value(name: str) -> str:
+    """Read a non-API secret from Streamlit secrets or the environment."""
+    try:
+        value = st.secrets.get(name, "") if st.secrets else ""
+    except Exception:
+        value = ""
+    if value and str(value).strip():
+        return str(value).strip()
+    return os.environ.get(name, "").strip()
+
+
 def _init_state() -> None:
     st.session_state.setdefault("bot", FurnitureChatbot())
     st.session_state.setdefault("pending_prompt", "")
     st.session_state.setdefault("local_api_key", "")
+    st.session_state.setdefault("authorized", False)
     st.session_state.setdefault("demo_mode", not bool(_secret_key() or st.session_state.get("local_api_key")))
 
 
@@ -73,6 +85,35 @@ _init_state()
 _secret = _secret_key()
 _local_key = str(st.session_state.get("local_api_key", "")).strip()
 api_key = _secret or _local_key
+access_code = _secret_value("APP_ACCESS_CODE")
+
+
+# ---------------------------------------------------------------------------
+# Optional access gate — keeps the public app (and your API quota) private
+# ---------------------------------------------------------------------------
+if access_code and not st.session_state.authorized:
+    st.markdown(
+        f"""
+        <div class="mg-hero">
+          <div class="mg-hero-content">
+            <div class="mg-eyebrow">Private showroom preview</div>
+            <h1>Welcome back.</h1>
+            <p>This design concierge is invite-only. Enter your access code to continue.</p>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    with st.form("showroom_access"):
+        submitted_code = st.text_input("Access code", type="password", placeholder="Enter your code")
+        unlocked = st.form_submit_button("Enter the showroom", use_container_width=True)
+    if unlocked:
+        if submitted_code.strip() == access_code:
+            st.session_state.authorized = True
+            st.rerun()
+        else:
+            st.error("That code isn't right. Please try again.")
+    st.stop()
 
 
 # ---------------------------------------------------------------------------
@@ -86,6 +127,9 @@ with st.sidebar:
         st.markdown('<span class="mg-badge mg-badge-demo">● DEMO MODE</span>', unsafe_allow_html=True)
     else:
         st.markdown('<span class="mg-badge mg-badge-live">● LIVE · GEMINI</span>', unsafe_allow_html=True)
+
+    if access_code:
+        st.markdown('<span class="mg-badge mg-badge-demo">🔒 INVITE ONLY</span>', unsafe_allow_html=True)
 
     st.markdown('<div class="mg-side-label">Connection</div>', unsafe_allow_html=True)
     if not _secret:
@@ -166,6 +210,11 @@ with st.sidebar:
     if st.button("🔄 Start a fresh conversation", use_container_width=True):
         st.session_state.bot.reset()
         st.session_state.pending_prompt = ""
+        st.rerun()
+
+    if access_code and st.button("🔒 Lock this conversation", use_container_width=True):
+        st.session_state.authorized = False
+        st.session_state.bot.reset()
         st.rerun()
 
 # Point the engine at the current key / mode before handling any messages.

@@ -21,11 +21,10 @@ if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
 from chatbot import FurnitureChatbot
-from src.gemini_client import GeminiError
+from src.gemini_client import GeminiError, _model_name as current_model
 from src.prompt import (
     ASSISTANT_NAME,
     MAX_OUTPUT_TOKENS,
-    MODEL_NAME,
     STORE_NAME,
     SUGGESTED_PROMPTS,
     TEMPERATURE,
@@ -85,6 +84,11 @@ _secret = _secret_key()
 _local_key = str(st.session_state.get("local_api_key", "")).strip()
 api_key = _secret or _local_key
 access_code = _secret_value("APP_ACCESS_CODE")
+
+# Optional model override, e.g. GEMINI_MODEL = "gemini-3.8-flash" in Secrets
+model_override = _secret_value("GEMINI_MODEL")
+if model_override:
+    os.environ["GEMINI_MODEL"] = model_override
 
 
 # ---------------------------------------------------------------------------
@@ -213,7 +217,7 @@ with st.sidebar:
               <b>Context &amp; guardrail.</b> Furniture and interiors only. Off-topic
               questions are politely redirected; catalogue facts come from the system
               prompt, never invented.<br/><br/>
-              <b>Model.</b> <code>{MODEL_NAME}</code> via the Google Gemini API<br/>
+              <b>Model.</b> <code>{current_model()}</code> via the Google Gemini API<br/>
               <b>Temperature.</b> <code>{TEMPERATURE}</code> — accurate product facts
               with a natural, friendly tone.<br/>
               <b>Max tokens.</b> <code>{MAX_OUTPUT_TOKENS}</code> — keeps replies short
@@ -287,7 +291,7 @@ if user_input:
             if error.hint:
                 st.caption(error.hint)
 
-_powered_by = f"✨ Powered by Google Gemini · <b>{MODEL_NAME}</b>"
+_powered_by = f"✨ Powered by Google Gemini · <b>{current_model()}</b>"
 st.markdown(
     f"""
     <div class="mg-footer">

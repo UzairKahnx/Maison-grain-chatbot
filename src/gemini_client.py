@@ -78,8 +78,10 @@ def _translate_http_error(status: int) -> GeminiError:
     if status == 404:
         return GeminiError(
             "I couldn't find the language model I use.",
-            f"The model '{_model_name()}' may be unavailable. You can set a different "
-            "GEMINI_MODEL in your environment or secrets.",
+            f"The model '{_model_name()}' isn't available for this key. Older models "
+            "such as gemini-2.0-flash have been shut down. Check the model name in "
+            "Google AI Studio, or add GEMINI_MODEL to Streamlit Secrets to choose a "
+            "supported one (e.g. gemini-3.8-flash).",
         )
     if status == 429:
         return GeminiError(

@@ -12,7 +12,7 @@ ASSISTANT_NAME = "Maya"
 # ---------------------------------------------------------------------------
 # MODEL CONFIGURATION (justification in README.md)
 # ---------------------------------------------------------------------------
-MODEL_NAME = "gemini-2.0-flash"   # fast, capable, generous free tier on Google AI Studio
+MODEL_NAME = "gemini-3.5-flash-lite"   # current stable, fast, cost-efficient model
 TEMPERATURE = 0.6                 # balanced: accurate catalogue facts + warm, natural tone
 MAX_OUTPUT_TOKENS = 600           # keeps answers concise and skimmable for chat
 TOP_P = 0.9                       # mild nucleus sampling; avoids odd low-probability words

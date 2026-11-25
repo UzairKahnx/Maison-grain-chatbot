@@ -14,7 +14,7 @@ questions. Its behaviour is defined mainly by a carefully designed system prompt
 | Single domain focus + off-topic redirect | `src/prompt.py` → `SYSTEM_PROMPT` (Role, Context, Constraints, Few-shot examples) |
 | System prompt design | `src/prompt.py` — role, audience, scope, constraints, catalogue knowledge |
 | Model configuration + justification | `src/prompt.py` constants and the table in section 3 below |
-| LLM API | Google Gemini REST API (`gemini-2.0-flash`) in `src/gemini_client.py` |
+| LLM API | Google Gemini REST API (`gemini-3.5-flash-lite`) in `src/gemini_client.py` |
 | Working code, graceful failures, conversation history | `chatbot.py` memory class + Streamlit `session_state`; `GeminiError`, retries, timeouts, friendly fallbacks |
 | Deployment with public link | Streamlit Community Cloud — steps in section 6 |
 | Attractive UI/UX & graphics | `src/ui.py` — custom CSS theme, inline SVG artwork, responsive cards |
@@ -49,7 +49,7 @@ The full prompt is in `src/prompt.py` and can be viewed inside the app under
 
 | Parameter | Value | Why |
 |---|---|---|
-| Model | `gemini-2.0-flash` | Fast, capable and available on the Google AI Studio free tier — ideal for a responsive chat UI. Override with `GEMINI_MODEL` if needed. |
+| Model | `gemini-3.5-flash-lite` | Current stable, fast and cost-efficient — ideal for a responsive chat UI. `gemini-2.0-flash` has been shut down by Google. Override any time with the `GEMINI_MODEL` secret (e.g. `gemini-3.8-flash`). |
 | Temperature | `0.6` | A middle setting: low enough to keep catalogue facts (sizes, prices, materials) accurate and consistent, high enough for warm, natural, non-robotic phrasing. |
 | Max output tokens | `600` | Chat answers should be scannable. This caps replies at roughly 3–6 short paragraphs, preventing rambling while leaving room for two product recommendations. |
 | Top-p | `0.9` | Mild nucleus sampling filters out unlikely word choices, complementing temperature for polished, professional wording. |

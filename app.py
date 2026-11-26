@@ -235,6 +235,17 @@ with st.sidebar:
         st.session_state.pending_prompt = ""
         st.rerun()
 
+    _transcript = "\n\n".join(
+        f"{'Maya' if m['role'] == 'assistant' else 'You'}: {m['content']}"
+        for m in st.session_state.bot.messages_for_display()
+    )
+    st.download_button(
+        "⬇️ Download chat transcript",
+        data=_transcript,
+        file_name="maison-grain-chat.txt",
+        use_container_width=True,
+    )
+
     if access_code and st.button("🔒 Lock this conversation", use_container_width=True):
         st.session_state.authorized = False
         st.session_state.bot.reset()

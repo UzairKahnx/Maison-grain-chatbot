@@ -309,3 +309,4 @@ def render_brand() -> None:
         """,
         unsafe_allow_html=True,
     )
+   
